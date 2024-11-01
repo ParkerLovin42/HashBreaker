@@ -34,12 +34,7 @@ def crack_hash(hash_string, wordlist, hash_type):
 		
 
 def main():
-	#(hash_type, hash_file, wordlist) = print_info()
-	
-	# TEMP
-	hash_type = "1"
-	hash_file = "/home/kali/Desktop/hash.txt"
-	wordlist = "/home/kali/Desktop/Arsenal/wordlists/rockyou.txt"
+	(hash_type, hash_file, wordlist) = print_info()
 	
 	h = 0
 	w = 0
@@ -62,5 +57,4 @@ def main():
 
 	hfile.close()
 	wfile.close()
-	print("Files closed successfully.")
 main()
