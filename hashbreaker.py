@@ -19,14 +19,20 @@ def print_info():
 	
 def crack_hash(hash_string, wordlist, hash_type):
 	if hash_type == "1":
+		if len(hash_string) != 40:
+			print(hash_string + " is not a valid SHA1 hash!")
+			return
 		for line in wordlist:
 			if hashlib.sha1(line.strip().encode()).hexdigest() == hash_string:
 				print("Solution for " + hash_string + ":\t\t\t" + line.strip())
 				return
 	elif hash_type == "2":
+		if len(hash_string) != 64:
+			print(hash_string + " is not a valid SHA256 hash!")
+			return
 		for line in wordlist:
 			if hashlib.sha256(line.strip().encode()).hexdigest() == hash_string:
-				print("Solution for " + hash_string + ": " + line.strip())
+				print("Solution for " + hash_string + ":\t\t\t" + line.strip())
 				return
 	elif hash_type == "3":
 		if len(hash_string) != 32:
@@ -34,7 +40,7 @@ def crack_hash(hash_string, wordlist, hash_type):
 			return
 		for line in wordlist:
 			if hashlib.md5(line.strip().encode()).hexdigest() == hash_string:
-				print("Solution for " + hash_string + ": " + line.strip())
+				print("Solution for " + hash_string + ":\t\t\t" + line.strip())
 				return
 		
 
@@ -58,7 +64,7 @@ def main():
 		return 0
 	
 	for line in h:
-		if line.strip() and not line.strip().isspace():
+		if line.strip() and not line.strip().isspace():	# Ignore empty strings and strings that only contain whitespace.
 			crack_hash(line.strip(), w, hash_type)
 
 	hfile.close()
