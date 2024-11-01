@@ -13,23 +13,28 @@ def print_info():
 	hash_type = input("Please enter the number corresponding to your hash type: ")
 	hash_file = input("Please enter the path to the file containing the hash(es): ")
 	wordlist = input("Please enter the path to the wordlist: ")
+	print()
+	print()
 	return (hash_type, hash_file, wordlist)
 	
 def crack_hash(hash_string, wordlist, hash_type):
 	if hash_type == "1":
 		for line in wordlist:
 			if hashlib.sha1(line.strip().encode()).hexdigest() == hash_string:
-				print("Solution: " + line.strip())
+				print("Solution for " + hash_string + ":\t\t\t" + line.strip())
 				return
 	elif hash_type == "2":
 		for line in wordlist:
 			if hashlib.sha256(line.strip().encode()).hexdigest() == hash_string:
-				print("Solution: " + line.strip())
+				print("Solution for " + hash_string + ": " + line.strip())
 				return
 	elif hash_type == "3":
+		if len(hash_string) != 32:
+			print(hash_string + " is not a valid MD5 hash!")
+			return
 		for line in wordlist:
 			if hashlib.md5(line.strip().encode()).hexdigest() == hash_string:
-				print("Solution: " + line.strip())
+				print("Solution for " + hash_string + ": " + line.strip())
 				return
 		
 
@@ -53,7 +58,8 @@ def main():
 		return 0
 	
 	for line in h:
-		crack_hash(line.strip(), w, hash_type)
+		if line.strip() and not line.strip().isspace():
+			crack_hash(line.strip(), w, hash_type)
 
 	hfile.close()
 	wfile.close()
