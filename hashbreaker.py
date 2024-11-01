@@ -18,29 +18,26 @@ def print_info():
 def crack_hash(hash_string, wordlist, hash_type):
 	if hash_type == "1":
 		for line in wordlist:
-			if hashlib.sha1(("b" + line).encode()).hexdigest() == hash_string:
-				print("TEST1: " + line)
-				#print("TEST2: " + line)
-				return("Solution: " + line)
+			if hashlib.sha1(line.strip().encode()).hexdigest() == hash_string:
+				print("Solution: " + line.strip())
+				return
 	elif hash_type == "2":
 		for line in wordlist:
-			if hashlib.sha256("b" + line).hexdigest() == hash_string:
-				print("TEST1: " + line)
-				#print("TEST2: " + line)
-				return("Solution: " + line)
+			if hashlib.sha256(line.strip().encode()).hexdigest() == hash_string:
+				print("Solution: " + line.strip())
+				return
 	elif hash_type == "3":
 		for line in wordlist:
 			if hashlib.md5(line.strip().encode()).hexdigest() == hash_string:
-				print("TEST1: " + line.strip())
-				#print("TEST2: " + line)
-				return("Solution: " + line)
+				print("Solution: " + line.strip())
+				return
 		
 
 def main():
 	#(hash_type, hash_file, wordlist) = print_info()
 	
 	# TEMP
-	hash_type = "3"
+	hash_type = "1"
 	hash_file = "/home/kali/Desktop/hash.txt"
 	wordlist = "/home/kali/Desktop/Arsenal/wordlists/rockyou.txt"
 	
@@ -64,5 +61,6 @@ def main():
 		crack_hash(line.strip(), w, hash_type)
 
 	hfile.close()
-	wfile.close()	
+	wfile.close()
+	print("Files closed successfully.")
 main()
